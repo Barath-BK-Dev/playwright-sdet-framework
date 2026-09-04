@@ -1,6 +1,9 @@
 pipeline {
 
     agent any
+    environment {
+        BASE_URL = 'https://opensource-demo.orangehrmlive.com'
+    }
 
     stages {
 
