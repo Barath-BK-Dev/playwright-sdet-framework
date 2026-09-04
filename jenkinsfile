@@ -4,6 +4,14 @@ pipeline {
 
     stages {
 
+        stage('Environment Check') {
+            steps {
+                bat 'node --version'
+                bat 'npm --version'
+                bat 'git --version'
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
