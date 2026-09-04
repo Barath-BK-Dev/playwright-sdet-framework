@@ -1,8 +1,14 @@
 pipeline {
 
     agent any
+
     environment {
         BASE_URL = 'https://opensource-demo.orangehrmlive.com'
+
+        ORANGEHRM_CREDENTIALS = credentials('orangehrm-credentials')
+
+        ORANGEHRM_USERNAME = "${ORANGEHRM_CREDENTIALS_USR}"
+        ORANGEHRM_PASSWORD = "${ORANGEHRM_CREDENTIALS_PSW}"
     }
 
     stages {
@@ -12,12 +18,9 @@ pipeline {
                 bat 'node --version'
                 bat 'npm --version'
                 bat 'git --version'
-            }
-        }
 
-        stage('Checkout') {
-            steps {
-                checkout scm
+                bat 'if defined ORANGEHRM_USERNAME (echo Username configured) else (echo Username missing)'
+                bat 'if defined ORANGEHRM_PASSWORD (echo Password configured) else (echo Password missing)'
             }
         }
 
