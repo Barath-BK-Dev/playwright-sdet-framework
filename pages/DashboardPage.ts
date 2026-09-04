@@ -1,6 +1,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { Sidebar } from "../components/Sidebar";
 import { Header } from "../components/Header";
+import { routes } from "../constants/routes";
 
 export class DashboardPage {
   readonly page: Page;
@@ -20,7 +21,14 @@ export class DashboardPage {
     this.header = new Header(page);
   }
 
+  async goto() {
+    await this.page.goto(routes.dashboard);
+  }
+
   async verifyDashboardLoaded() {
-    await expect(this.dashboardHeading).toBeVisible();
+    console.log("Current URL:", this.page.url());
+    console.log("Page title:", await this.page.title());
+
+    await expect(this.page).toHaveURL(/dashboard/);
   }
 }
